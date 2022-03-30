@@ -4,8 +4,7 @@ const app=express();
 const port=5000;
 const cors=require('cors');
 app.use(cors());
-// app.use(express.urlencoded({extended:false}));
-// app.use(bodyparser)
+app.use(bodyparser.json())
 app.use(express.urlencoded({ extended: true }));
 const connection=require('./db/connections');
 connection();
@@ -17,8 +16,8 @@ app.get('/',async(req,res)=>{
    const data=await  questionSchema.find({});
    console.log(data);
 //    res.send(JSON.stringify(data));
-// res.json(data);
-res.send("from backend");
+res.json(data);
+// res.send("from backend");
 
     }
     catch(err)
