@@ -3,16 +3,18 @@ const app=express();
 const port=5000;
 const cors=require('cors');
 app.use(cors);
+app.use(express.urlencoded({extended:false}));
 const connection=require('./db/connections');
 connection();
-const QuestionSchema=require("./Model/schema")
+const questionSchema=require("./Model/schema")
 app.use(express.json());
 app.get('/',async(req,res)=>{
     try{
  console.log("/ page")
-   const data=await  QuestionSchema.find({});
+   const data=await  questionSchema.find({});
    console.log(data);
-    res.send(data);
+//    res.send(JSON.stringify(data));
+res.json(data);
     }
     catch(err)
     {
@@ -35,7 +37,6 @@ app.post("/askQuestion",async(req,res)=>{
     {
         console.log(err);
     }
-  
 
 })
 app.listen(port,()=>{
