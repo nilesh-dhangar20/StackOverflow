@@ -1,20 +1,25 @@
 const express = require('express');
+const bodyparser=require('body-parser');
 const app=express();
 const port=5000;
 const cors=require('cors');
-app.use(cors);
-app.use(express.urlencoded({extended:false}));
+app.use(cors());
+// app.use(express.urlencoded({extended:false}));
+// app.use(bodyparser)
+app.use(express.urlencoded({ extended: true }));
 const connection=require('./db/connections');
 connection();
 const questionSchema=require("./Model/schema")
 app.use(express.json());
 app.get('/',async(req,res)=>{
     try{
- console.log("/ page")
+   console.log('/hoem page')
    const data=await  questionSchema.find({});
    console.log(data);
 //    res.send(JSON.stringify(data));
-res.json(data);
+// res.json(data);
+res.send("from backend");
+
     }
     catch(err)
     {
